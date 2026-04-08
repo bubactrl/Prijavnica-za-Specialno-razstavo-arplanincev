@@ -17,8 +17,18 @@ button{margin-top:25px;padding:15px;background:#2e7d32;color:white;font-size:16p
 button:hover{background:#1b5e20;}
 .required{color:red;}
 .success{background:#e8f5e9;color:#2e7d32;padding:15px;margin-top:20px;border-radius:8px;display:none;}
-.payment-instructions{background:#e8f5e9;color:#2e7d32;padding:15px;margin-top:10px;border-radius:8px;}
 small{color:#555;}
+
+/* GDPR checkbox styling */
+label.gdpr-label{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+label.gdpr-label input[type="checkbox"]{
+    width: auto;
+    margin-right: 10px;
+}
 </style>
 </head>
 
@@ -48,32 +58,32 @@ enctype="multipart/form-data">
 <label>Državljanstvo / Nationality <span class="required">*</span></label>
 <select name="drzavljanstvo" required>
 <option value="">Izberi / Select</option>
-<option>Slovenija</option>
-<option>Hrvaška</option>
-<option>Srbija</option>
-<option>Bosna in Hercegovina</option>
-<option>Črna gora</option>
-<option>Makedonija</option>
-<option>Albanija</option>
-<option>Kosovo</option>
-<option>Avstrija</option>
-<option>Nemčija</option>
-<option>Italija</option>
-<option>Švica</option>
-<option>Francija</option>
-<option>Belgija</option>
-<option>Nizozemska</option>
-<option>Španija</option>
-<option>Portugalska</option>
-<option>Poljska</option>
-<option>Češka</option>
-<option>Slovaška</option>
-<option>Madžarska</option>
-<option>Romunija</option>
-<option>Grčija</option>
-<option>Danska</option>
-<option>Norveška</option>
-<option>Švedska</option>
+<option>Slovenija / Slovenia</option>
+<option>Hrvaška / Croatia</option>
+<option>Srbija / Serbia</option>
+<option>Bosna in Hercegovina / Bosnia and Herzegovina</option>
+<option>Črna gora / Montenegro</option>
+<option>Makedonija / Macedonia</option>
+<option>Albanija / Albania</option>
+<option>Kosovo / Kosovo</option>
+<option>Avstrija / Austria</option>
+<option>Nemčija / Germany</option>
+<option>Italija / Italy</option>
+<option>Švica / Switzerland</option>
+<option>Francija / France</option>
+<option>Belgija / Belgium</option>
+<option>Nizozemska / Netherlands</option>
+<option>Španija / Spain</option>
+<option>Portugalska / Portugal</option>
+<option>Poljska / Poland</option>
+<option>Češka / Czech Republic</option>
+<option>Slovaška / Slovakia</option>
+<option>Madžarska / Hungary</option>
+<option>Romunija / Romania</option>
+<option>Grčija / Greece</option>
+<option>Danska / Denmark</option>
+<option>Norveška / Norway</option>
+<option>Švedska / Sweden</option>
 </select>
 
 <label>Email <span class="required">*</span></label>
@@ -126,24 +136,20 @@ enctype="multipart/form-data">
 <input type="file" name="rodovnik" accept="image/*,.pdf" required>
 <small>Max 5MB</small>
 
+<!-- Champion Certificate polje -->
+<div id="championField" style="display:none;">
+<label>Potrdilo o šampionatu / Champion Title Certificate <span class="required">*</span></label>
+<input type="file" name="champion_certificate" accept="image/*,.pdf">
+<small>Upload only if dog is Champion (max 5MB)</small>
+</div>
+
 <label>Opombe / Notes</label>
 <textarea rows="4" name="opombe"></textarea>
 
-<h2>Plačilo / Payment</h2>
-
-<label>Znesek / Amount</label>
-<input type="number" name="placilo" value="50" readonly>
-
-<div class="payment-instructions">
-Nakažite <strong>50 €</strong> na TRR:<br>
-<strong>SI56 1234 5678 9012 345</strong><br><br>
-Send <strong>50 €</strong> to bank account above.<br>
-Po prejetem plačilu boste prejeli e-mail / You will receive confirmation after payment.
-</div>
-
-<label>
-<input type="checkbox" name="gdpr" value="Da" required>
-Soglašam z obdelavo osebnih podatkov / I agree to data processing
+<!-- GDPR checkbox -->
+<label class="gdpr-label">
+  <input type="checkbox" name="gdpr" value="Da" required>
+  Soglašam z obdelavo osebnih podatkov / I agree to data processing <span class="required">*</span>
 </label>
 
 <button type="submit">Oddaj prijavo / Submit Application</button>
@@ -156,9 +162,25 @@ Soglašam z obdelavo osebnih podatkov / I agree to data processing
 </div>
 
 <script>
+// Submit form
 document.getElementById("prijavaForm").addEventListener("submit", function(event){
   event.preventDefault();
   const form = event.target;
+
+  // Preveri GDPR
+  const gdpr = form.querySelector('input[name="gdpr"]');
+  if(!gdpr.checked){
+    alert("Prosimo, da se strinjate z obdelavo osebnih podatkov / Please agree to data processing");
+    return;
+  }
+
+  // Če je razred Champion, preveri, če je datoteka priložena
+  const razred = form.querySelector('select[name="razred"]').value;
+  const champFile = form.querySelector('input[name="champion_certificate"]');
+  if(razred === "Prvaki / Champions" && !champFile.value){
+    alert("Prosim, priložite Potrdilo o šampionatu / Please attach Champion Certificate");
+    return;
+  }
 
   fetch(form.action,{
     method:"POST",
@@ -166,9 +188,25 @@ document.getElementById("prijavaForm").addEventListener("submit", function(event
   }).then(()=>{
     document.getElementById("successMessage").style.display="block";
     form.reset();
+    document.getElementById("championField").style.display = "none"; // skrij polje po resetu
   }).catch(()=>{
     alert("Prišlo je do napake / An error occurred");
   });
+});
+
+// Pokaži/skrij Champion Certificate polje glede na razred
+const razredSelect = document.querySelector('select[name="razred"]');
+const championField = document.getElementById("championField");
+
+razredSelect.addEventListener("change", function() {
+  if(this.value === "Prvaki / Champions"){
+    championField.style.display = "block";
+    championField.querySelector('input').required = true;
+  } else {
+    championField.style.display = "none";
+    championField.querySelector('input').required = false;
+    championField.querySelector('input').value = "";
+  }
 });
 </script>
 
