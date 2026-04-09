@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prijavnica – Specialna razstava za Šarplanince CAC</title>
-
 <style>
 body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;}
 header{background:#2e7d32;color:white;text-align:center;padding:30px;}
@@ -18,42 +17,26 @@ button:hover{background:#1b5e20;}
 .required{color:red;}
 .success{background:#e8f5e9;color:#2e7d32;padding:15px;margin-top:20px;border-radius:8px;display:none;}
 small{color:#555;}
-
-label.gdpr-label{
-    display: flex;
-    align-items: center;
-    margin-top: 15px;
-}
-label.gdpr-label input[type="checkbox"]{
-    width: auto;
-    margin-right: 10px;
-}
+label.gdpr-label{display: flex;align-items: center;margin-top: 15px;}
+label.gdpr-label input[type="checkbox"]{width: auto;margin-right: 10px;}
 </style>
 </head>
-
 <body>
 
 <header>
-<h1>🐕 Prijava na Specialno razstavo za Šarplanince<br>
-Application for Special Šarplaninac Show</h1>
+<h1>🐕 Prijava na Specialno razstavo za Šarplanince<br>Application for Special Šarplaninac Show</h1>
 <p>25. April 2026 – Cerknica</p>
 </header>
 
 <div class="container">
+<form id="prijavaForm" action="https://tajazgur.app.n8n.cloud/webhook-test/Prijave na specialno razstavo za sarplanince" method="POST" enctype="multipart/form-data">
 
-<form id="prijavaForm"
-action="https://tajazgur.app.n8n.cloud/webhook/Prijave na specialno razstavo za sarplanince"
-method="POST"
-enctype="multipart/form-data">
-
+<!-- Owner Info -->
 <h2>Podatki lastnika / Owner Information</h2>
-
 <label>Ime / First Name <span class="required">*</span></label>
 <input type="text" name="ime" required>
-
 <label>Priimek / Last Name <span class="required">*</span></label>
 <input type="text" name="priimek" required>
-
 <label>Državljanstvo / Nationality <span class="required">*</span></label>
 <select name="drzavljanstvo" required>
   <option value="">Izberi / Select</option>
@@ -84,38 +67,29 @@ enctype="multipart/form-data">
   <option>Norveška / Norway</option>
   <option>Švedska / Sweden</option>
 </select>
-
-<!-- Naslov prebivališča / Address Fields -->
 <label>Naslov / Address <span class="required">*</span></label>
 <input type="text" name="naslov" placeholder="Ulica, hišna številka / Street, House No." required>
-
 <label>Poštna številka / Postal Code <span class="required">*</span></label>
 <input type="text" name="posta" placeholder="1000" required>
-
 <label>Mesto / City <span class="required">*</span></label>
 <input type="text" name="mesto" placeholder="Ljubljana" required>
-
 <label>Email <span class="required">*</span></label>
 <input type="email" name="email" required>
-
 <label>Telefon / Phone <span class="required">*</span></label>
 <input type="tel" name="telefon" required>
 
+<!-- Dog Info -->
 <h2>Podatki o psu / Dog Information</h2>
-
 <label>Ime psa / Dog Name <span class="required">*</span></label>
 <input type="text" name="ime_psa" required>
-
 <label>Spol / Sex <span class="required">*</span></label>
 <select name="spol" required>
 <option value="">Izberi / Select</option>
 <option>Pes / Male</option>
 <option>Psica / Female</option>
 </select>
-
 <label>Datum rojstva / Date of Birth <span class="required">*</span></label>
 <input type="date" name="datum" required>
-
 <label>Razred / Class <span class="required">*</span></label>
 <select name="razred" required>
 <option value="">Izberi / Select</option>
@@ -127,30 +101,24 @@ enctype="multipart/form-data">
 <option>Mladiči / Puppy</option>
 <option>Veterani / Veteran</option>
 </select>
-
 <label>Ime matere / Mother's Name <span class="required">*</span></label>
 <input type="text" name="ime_matere" required>
-
 <label>Ime očeta / Father's Name <span class="required">*</span></label>
 <input type="text" name="ime_oceta" required>
-
 <label>Par / Pair <span class="required">*</span></label>
 <select name="par" required>
 <option value="">Izberi / Select</option>
 <option>Da / Yes</option>
 <option>Ne / No</option>
 </select>
-
 <label>Rodovnik (slika ali PDF) / Pedigree (image or PDF) <span class="required">*</span></label>
 <input type="file" name="rodovnik" accept="image/*,.pdf" required>
 <small>Max 5MB</small>
-
 <div id="championField" style="display:none;">
 <label>Potrdilo o šampionatu / Champion Title Certificate <span class="required">*</span></label>
 <input type="file" name="champion_certificate" accept="image/*,.pdf">
 <small>Upload only if dog is Champion (max 5MB)</small>
 </div>
-
 <label>Opombe / Notes</label>
 <textarea rows="4" name="opombe"></textarea>
 
@@ -165,7 +133,9 @@ enctype="multipart/form-data">
   <p style="font-size:20px; margin:10px 0;"><strong>35 €</strong></p>
   
   <!-- QR KODA ZA PLAČILO -->
-  <img src="89a09adf4e724dacb8f29a0b831efa37.png" alt="QR za plačilo" style="width:180px; margin-top:10px;">
+  <img src="/Applications/Razstava VS html koda/images/89a09adf4e724dacb8f29a0b831efa37.png" 
+       alt="QR za plačilo" 
+       style="width:180px; margin-top:10px;">
   
   <p style="margin-top:10px; font-size:13px; color:#555;">
     Skeniraj QR za plačilo, nato oddaj prijavo<br>
@@ -174,11 +144,9 @@ enctype="multipart/form-data">
 </div>
 
 <button type="submit">Oddaj prijavo / Submit Application</button>
-
 <div class="success" id="successMessage">
 ✅ Prijava uspešno oddana! / Application submitted successfully!
 </div>
-
 </form>
 </div>
 
@@ -187,12 +155,14 @@ document.getElementById("prijavaForm").addEventListener("submit", function(event
   event.preventDefault();
   const form = event.target;
 
+  // GDPR check
   const gdpr = form.querySelector('input[name="gdpr"]');
   if(!gdpr.checked){
     alert("Prosimo, da se strinjate z obdelavo osebnih podatkov / Please agree to data processing");
     return;
   }
 
+  // Champion certificate check
   const razred = form.querySelector('select[name="razred"]').value;
   const champFile = form.querySelector('input[name="champion_certificate"]');
   if(razred === "Prvaki / Champions" && !champFile.value){
@@ -200,9 +170,26 @@ document.getElementById("prijavaForm").addEventListener("submit", function(event
     return;
   }
 
+  // Prepare FormData for n8n: rodovnik + champion_certificate as binary, rest as text
+  const formData = new FormData();
+  const files = ['rodovnik', 'champion_certificate'];
+  files.forEach(name => {
+    const input = form.querySelector(`input[name="${name}"]`);
+    if(input && input.files.length > 0){
+      formData.append(name, input.files[0]);
+    }
+  });
+
+  // Add text fields
+  form.querySelectorAll('input, select, textarea').forEach(el=>{
+    if(!files.includes(el.name)){
+      formData.append(el.name, el.value);
+    }
+  });
+
   fetch(form.action,{
     method:"POST",
-    body:new FormData(form)
+    body: formData
   }).then(()=>{
     document.getElementById("successMessage").style.display="block";
     form.reset();
@@ -212,9 +199,9 @@ document.getElementById("prijavaForm").addEventListener("submit", function(event
   });
 });
 
+// Show champion certificate field if needed
 const razredSelect = document.querySelector('select[name="razred"]');
 const championField = document.getElementById("championField");
-
 razredSelect.addEventListener("change", function() {
   if(this.value === "Prvaki / Champions"){
     championField.style.display = "block";
@@ -226,6 +213,5 @@ razredSelect.addEventListener("change", function() {
   }
 });
 </script>
-
 </body>
 </html>
