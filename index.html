@@ -36,7 +36,7 @@ label.gdpr-label input[type="checkbox"]{
 <header>
 <h1>🐕 Prijava na Specialno razstavo za Šarplanince<br>
 Application for Special Šarplaninac Show</h1>
-<p>25. April 2026 – Ljubljana</p>
+<p>25. April 2026 – Cirknica</p>
 </header>
 
 <div class="container">
@@ -56,34 +56,44 @@ enctype="multipart/form-data">
 
 <label>Državljanstvo / Nationality <span class="required">*</span></label>
 <select name="drzavljanstvo" required>
-<option value="">Izberi / Select</option>
-<option>Slovenija / Slovenia</option>
-<option>Hrvaška / Croatia</option>
-<option>Srbija / Serbia</option>
-<option>Bosna in Hercegovina / Bosnia and Herzegovina</option>
-<option>Črna gora / Montenegro</option>
-<option>Makedonija / Macedonia</option>
-<option>Albanija / Albania</option>
-<option>Kosovo / Kosovo</option>
-<option>Avstrija / Austria</option>
-<option>Nemčija / Germany</option>
-<option>Italija / Italy</option>
-<option>Švica / Switzerland</option>
-<option>Francija / France</option>
-<option>Belgija / Belgium</option>
-<option>Nizozemska / Netherlands</option>
-<option>Španija / Spain</option>
-<option>Portugalska / Portugal</option>
-<option>Poljska / Poland</option>
-<option>Češka / Czech Republic</option>
-<option>Slovaška / Slovakia</option>
-<option>Madžarska / Hungary</option>
-<option>Romunija / Romania</option>
-<option>Grčija / Greece</option>
-<option>Danska / Denmark</option>
-<option>Norveška / Norway</option>
-<option>Švedska / Sweden</option>
+  <option value="">Izberi / Select</option>
+  <option>Slovenija / Slovenia</option>
+  <option>Hrvaška / Croatia</option>
+  <option>Srbija / Serbia</option>
+  <option>Bosna in Hercegovina / Bosnia and Herzegovina</option>
+  <option>Črna gora / Montenegro</option>
+  <option>Makedonija / Macedonia</option>
+  <option>Albanija / Albania</option>
+  <option>Kosovo / Kosovo</option>
+  <option>Avstrija / Austria</option>
+  <option>Nemčija / Germany</option>
+  <option>Italija / Italy</option>
+  <option>Švica / Switzerland</option>
+  <option>Francija / France</option>
+  <option>Belgija / Belgium</option>
+  <option>Nizozemska / Netherlands</option>
+  <option>Španija / Spain</option>
+  <option>Portugalska / Portugal</option>
+  <option>Poljska / Poland</option>
+  <option>Češka / Czech Republic</option>
+  <option>Slovaška / Slovakia</option>
+  <option>Madžarska / Hungary</option>
+  <option>Romunija / Romania</option>
+  <option>Grčija / Greece</option>
+  <option>Danska / Denmark</option>
+  <option>Norveška / Norway</option>
+  <option>Švedska / Sweden</option>
 </select>
+
+<!-- Naslov prebivališča / Address Fields -->
+<label>Naslov / Address <span class="required">*</span></label>
+<input type="text" name="naslov" placeholder="Ulica, hišna številka / Street, House No." required>
+
+<label>Poštna številka / Postal Code <span class="required">*</span></label>
+<input type="text" name="posta" placeholder="1000" required>
+
+<label>Mesto / City <span class="required">*</span></label>
+<input type="text" name="mesto" placeholder="Ljubljana" required>
 
 <label>Email <span class="required">*</span></label>
 <input type="email" name="email" required>
